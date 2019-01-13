@@ -1,7 +1,7 @@
-const char DEG = 0xDF;
-const char METERS[] = "m";
-const char KILOMETERS[] = "Km";
-const char MEGAMETERS[] = "Mm";
+static const char DEG = 0xDF;
+static const char METERS[] = "m";
+static const char KILOMETERS[] = "Km";
+static const char MEGAMETERS[] = "Mm";
 
 struct GameData {
   float ap;

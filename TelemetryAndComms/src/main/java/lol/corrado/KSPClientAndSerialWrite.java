@@ -10,8 +10,8 @@ public class KSPClientAndSerialWrite {
     public static void main(String[] args) {
 
         SerialPort serial = startSerial();
-
         new Thread(new DataPushingThread(serial)).start();
+        new KRPCLogic().start();
 
     }
 

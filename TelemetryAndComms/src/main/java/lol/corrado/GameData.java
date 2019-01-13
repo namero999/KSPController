@@ -11,15 +11,13 @@ import static lol.corrado.utils.Utils.shortToBytes;
 public class GameData {
 
     public byte[] vesselName;
-    public float apoapsisMeters = 0;
+    public float apoapsisMeters;
     public float periapsisMeters;
     public float inclinationDegrees;
     public short g = 0;
 
     public byte[] getBytes() {
 
-        g++;
-        apoapsisMeters++;
         byte[] res = new byte[4 + 4 + 4 + 2];
         arraycopy(intToBytes(floatToIntBits(apoapsisMeters)), 0, res, 0, 4);
         arraycopy(intToBytes(floatToIntBits(periapsisMeters)), 0, res, 4, 4);
