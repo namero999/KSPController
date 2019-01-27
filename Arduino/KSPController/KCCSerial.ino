@@ -14,3 +14,7 @@ void KCCSerial::handshake() {
   _lcd.clear();
 
 }
+
+boolean KCCSerial::readPacket(byte buf[]) {
+  return (Serial.available() && Serial.readBytesUntil(END, buf, 100));
+}

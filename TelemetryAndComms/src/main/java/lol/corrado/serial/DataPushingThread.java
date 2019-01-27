@@ -1,7 +1,7 @@
 package lol.corrado.serial;
 
 import com.fazecast.jSerialComm.SerialPort;
-import lol.corrado.GameData;
+import lol.corrado.model.GameData;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

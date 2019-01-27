@@ -5,16 +5,17 @@ import krpc.client.RPCException;
 import krpc.client.Stream;
 import krpc.client.services.KRPC;
 import krpc.client.services.SpaceCenter;
+import krpc.client.services.SpaceCenter.CelestialBody;
 import krpc.client.services.SpaceCenter.Control;
 import krpc.client.services.UI;
+import lol.corrado.model.GameData;
+import lol.corrado.utils.Utils;
 import lombok.SneakyThrows;
 import org.javatuples.Triplet;
 
 import static java.lang.Thread.sleep;
-import static java.nio.charset.StandardCharsets.US_ASCII;
 import static krpc.client.services.SpaceCenter.SASMode.STABILITY_ASSIST;
 import static krpc.client.services.UI.MessagePosition.TOP_CENTER;
-import static lol.corrado.serial.KCCSerial.padRight;
 
 public class KRPCLogic {
 
@@ -26,10 +27,13 @@ public class KRPCLogic {
     @SneakyThrows
     public void start() {
 
-        Stream<Double> altitude = null;
         Stream<Double> apoapsis = null;
         Stream<Double> periapsis = null;
         Stream<Double> inclination = null;
+
+        Stream<Double> altitude = null;
+        Stream<Double> vSpeed = null;
+        Stream<Double> hSpeed = null;
 
         try (Connection connection = Connection.newInstance()) {
 
@@ -37,15 +41,21 @@ public class KRPCLogic {
 
             SpaceCenter.Vessel vessel = spaceCenter.getActiveVessel();
             setupPreFlight(vessel);
-            GameData.vesselName = padRight(vessel.getName(), 20).getBytes(US_ASCII);
+            GameData.vesselName = Utils.toChars(vessel.getName());
 
 
             SpaceCenter.Flight flight = vessel.flight(vessel.getSurfaceReferenceFrame());
+            SpaceCenter.Orbit orbit = vessel.getOrbit();
 
+            // ORBITAL
+            apoapsis = connection.addStream(orbit, "getApoapsisAltitude");
+            periapsis = connection.addStream(orbit, "getPeriapsisAltitude");
+            inclination = connection.addStream(orbit, "getInclination");
+
+            // SURFACE
             altitude = connection.addStream(flight, "getMeanAltitude");
-            apoapsis = connection.addStream(vessel.getOrbit(), "getApoapsisAltitude");
-            periapsis = connection.addStream(vessel.getOrbit(), "getPeriapsisAltitude");
-            inclination = connection.addStream(vessel.getOrbit(), "getInclination");
+            vSpeed = connection.addStream(flight, "getVerticalSpeed");
+            hSpeed = connection.addStream(flight, "getHorizontalSpeed");
 
             // Activate the first stage
 //            vessel.getControl().activateNextStage();
@@ -57,9 +67,12 @@ public class KRPCLogic {
 
                 GameData.apoapsisMeters = (float) (double) apoapsis.get();
                 GameData.periapsisMeters = (float) (double) periapsis.get();
-                GameData.inclinationDegrees = (float) Math.toDegrees(inclination.get());
+                GameData.inclinationDegrees = (float) (inclination.get() * 180 / Math.PI); // Math.toDegrees(inclination.get())
 
-                sleep(20);
+                CelestialBody body = orbit.getBody();
+//                GameData.body = body.getName().getBytes(US_ASCII);
+
+                sleep(50);
 
             }
 

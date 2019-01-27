@@ -7,10 +7,6 @@ version '1.0.0'
 
 sourceCompatibility = 1.8
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.10.3'
-}
-
 repositories {
     mavenCentral()
     flatDir {
@@ -24,7 +20,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.4'
 
     compile name: 'krpc-java-0.4.8'
-    
+
     compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.6.1'
     compile group: 'org.javatuples', name: 'javatuples', version: '1.2'
     compile group: 'com.fazecast', name: 'jSerialComm', version: '2.3.0'

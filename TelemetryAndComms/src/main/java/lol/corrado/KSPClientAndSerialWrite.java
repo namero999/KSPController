@@ -11,7 +11,7 @@ public class KSPClientAndSerialWrite {
 
         SerialPort serial = startSerial();
         new Thread(new DataPushingThread(serial)).start();
-        new KRPCLogic().start();
+//        new KRPCLogic().start();
 
     }
 

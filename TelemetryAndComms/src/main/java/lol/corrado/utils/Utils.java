@@ -2,6 +2,9 @@ package lol.corrado.utils;
 
 import lombok.SneakyThrows;
 
+import static java.lang.System.arraycopy;
+import static java.nio.charset.StandardCharsets.US_ASCII;
+
 public class Utils {
 
     public static byte[] shortToBytes(short val) {
@@ -33,6 +36,14 @@ public class Utils {
     @SneakyThrows
     public static void sleep(long millis) {
         Thread.sleep(millis);
+    }
+
+    public static byte[] toChars(String s) {
+        byte[] nulls = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+        if (s == null || s.isEmpty()) return nulls;
+        byte[] bytes = s.getBytes(US_ASCII);
+        arraycopy(bytes, 0, nulls, 0, bytes.length);
+        return nulls;
     }
 
 }

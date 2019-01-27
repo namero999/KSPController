@@ -7,10 +7,11 @@ import static lol.corrado.utils.Utils.sleep;
 
 public class KCCSerial {
 
-    private static final int BAUD = 38400;
+    private static final int BAUD = 57600;
 
     public static final byte SYN = 0x5E; // ^
     public static final byte ACK = 0x7E; // ~
+    public static final byte END = 0x17;
 
     private static SerialPort port;
 
@@ -42,10 +43,6 @@ public class KCCSerial {
 
         System.out.println("Jeb Has Arrived!");
 
-    }
-
-    public static String padRight(String s, int n) {
-        return String.format("%1$-" + n + "s", s);
     }
 
 }

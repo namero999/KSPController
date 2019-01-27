@@ -1,5 +1,4 @@
-#ifndef KCC_ENC_h
-#define KCC_ENC_h
+#pragma once
 
 typedef uint8_t SASMode;
 
@@ -27,5 +26,3 @@ class KCCEncoder4SAS {
 };
 
 extern KCCEncoder4SAS _SASMODE;
-
-#endif

@@ -19,7 +19,7 @@ import static java.lang.Thread.sleep;
 import static krpc.client.services.SpaceCenter.SASMode.STABILITY_ASSIST;
 import static krpc.client.services.UI.MessagePosition.TOP_CENTER;
 
-public class KSPClient {
+public class KSPAutoOrbitScript {
 
     public static KRPC krpc;
     public static UI ui;

@@ -4,8 +4,17 @@ static const char KILOMETERS[] = "Km";
 static const char MEGAMETERS[] = "Mm";
 
 struct GameData {
+
+  char vessel[11];
+  
   float ap;
   float pe;
   float in;
-  short g;
+
+  char body[11];
+
+  float alt;
+  float hS;
+  float vS;
+
 };

@@ -1,5 +1,4 @@
-#ifndef KCC_LCD_h
-#define KCC_LCD_h
+#pragma once
 
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
@@ -13,5 +12,3 @@ class KCCLCD {
 };
 
 extern KCCLCD _LCD;
-
-#endif
