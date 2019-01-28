@@ -1,14 +1,10 @@
 #include "Constants.h"
 #include "GameData.h"
-#include "KCCSerial.h"
-#include "KCCLCD.h"
-#include "KCCEncoder4SAS.h"
+#include "KCC_LCD.h"
+#include "KCC_Serial.h"
+#include "KCC_SASEncoder.h"
 
 GameData gameData;
-const int gdSize = sizeof(gameData);
-
-byte buf[100];
-char line[10];
 
 void setup() {
 
@@ -19,42 +15,22 @@ void setup() {
   _SP.setup();
   _SP.handshake();
 
-  _LCD.print(10, 0, gdSize);
+  _LCD.print(10, 0, sizeof(gameData));
+  _LCD.print(10, 1, sizeof(GameData));
 
 }
 
-int i = 0;
 void loop() {
 
-  if (_SP.readPacket(buf)) {
+  if (_SP.readPacket(&gameData))
+    _LCD.update();
 
-    _LCD.print(0, 0, ++i);
-    _LCD.print(0, 1, gdSize);
-
-    memcpy(&gameData, buf, gdSize);
-
-    if (i < 2) {
-      _LCD.print(2, 2, gameData.vessel);
-      _LCD.print(10, 2, gameData.body);
-    }
-
-    _LCD.print(2, 3, gameData.pe);
-    _LCD.print(12, 3, gameData.hS);
-
-    Serial.write(_SP.SYN);
-
-  }
-
-  delay(2);
+  delay(1);
 
 }
 
 
-
-
-
-
-
+//char line[10];
 //if (Serial.available() >= gdSize) {
 //
 //    Serial.readBytes(buf, gdSize);

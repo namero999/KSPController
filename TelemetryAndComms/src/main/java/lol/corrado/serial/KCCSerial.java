@@ -25,7 +25,7 @@ public class KCCSerial {
         if (!port.openPort())
             throw new RuntimeException("Failed to open serial port");
 
-        sleep(5_000);
+        sleep(4_000);
 
         handshake();
 

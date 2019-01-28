@@ -1,3 +1,5 @@
+#pragma once
+
 static const char DEG = 0xDF;
 static const char METERS[] = "m";
 static const char KILOMETERS[] = "Km";

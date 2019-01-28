@@ -1,6 +1,8 @@
 #pragma once
 
-class KCCSerial {
+#include "Arduino.h"
+
+class KCC_Serial {
 
   private:
     static const unsigned int BAUD = 57600;
@@ -11,8 +13,8 @@ class KCCSerial {
     static const byte END = 0x17;
     void setup();
     void handshake();
-    boolean readPacket(byte buf[]);
+    boolean readPacket(GameData*);
 
 };
 
-extern KCCSerial _SP;
+extern KCC_Serial _SP;
