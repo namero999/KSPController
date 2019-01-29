@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.SneakyThrows;
 
-import static lol.corrado.serial.KCCSerial.SYN;
+import static lol.corrado.serial.KCCSerial.*;
 
 @RequiredArgsConstructor
 public class DataPushingThread implements Runnable {
@@ -24,8 +24,13 @@ public class DataPushingThread implements Runnable {
 
         do {
             byte[] bytes = GameData.getBytes();
+            serial.writeBytes(START, START.length);
             serial.writeBytes(bytes, bytes.length);
-        } while (!shouldStop && serial.getInputStream().read() == SYN);
+            serial.writeBytes(END, END.length);
+            byte b = (byte) serial.getInputStream().read();
+            if (b == NAK)
+                System.out.println("NAK!");
+        } while (!shouldStop);
 
     }
 

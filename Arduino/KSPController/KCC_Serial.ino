@@ -15,16 +15,51 @@ void KCC_Serial::handshake() {
 
 }
 
-byte serialBuffer[sizeof(GameData)];
+byte serialBuffer[GD_SIZE];
 
-boolean KCC_Serial::readPacket(GameData* gameData) {
+boolean KCC_Serial::readData(GameData* gameData) {
 
-  if (Serial.available() && Serial.readBytesUntil(END, serialBuffer, sizeof(serialBuffer)))  {
-    memcpy(gameData, serialBuffer, sizeof(GameData));
-    Serial.write(SYN);
-    return true;
+  static boolean progress = false;
+  static uint8_t index = 0;
+
+  while (Serial.available() > 1) {
+
+    if (progress) {
+      
+      if (index < GD_SIZE) {
+        serialBuffer[index++] = Serial.read();
+      }
+      else {
+    
+        progress = false;
+        index = 0;
+        
+        if (Serial.read() == DC3 && Serial.read() == DC4) {
+          memcpy(gameData, serialBuffer, GD_SIZE);
+          Serial.write(ACK);
+          return true;
+        }
+        else {
+          Serial.write(NAK);
+          return false;
+        }
+      
+      }
+    
+    }
+    else if (Serial.read() == DC1 && Serial.read() == DC2) {
+      progress = true;
+    }
+
   }
-  
+
   return false;
 
 }
+
+//uint8_t bytes = Serial.readBytes(serialBuffer, GD_SIZE);
+//      if (Serial.read() == DC3 && Serial.read() == DC4) {
+//        memcpy(gameData, serialBuffer, GD_SIZE);
+//        Serial.write(SYN);
+//        return true;
+//      }

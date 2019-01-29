@@ -16,7 +16,9 @@ struct GameData {
   char body[11];
 
   float alt;
-  float hS;
   float vS;
+  float hS;
 
 };
+
+static const uint8_t GD_SIZE = sizeof(GameData);

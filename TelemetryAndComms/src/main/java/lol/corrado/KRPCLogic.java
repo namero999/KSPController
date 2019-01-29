@@ -5,8 +5,7 @@ import krpc.client.RPCException;
 import krpc.client.Stream;
 import krpc.client.services.KRPC;
 import krpc.client.services.SpaceCenter;
-import krpc.client.services.SpaceCenter.CelestialBody;
-import krpc.client.services.SpaceCenter.Control;
+import krpc.client.services.SpaceCenter.*;
 import krpc.client.services.UI;
 import lol.corrado.model.GameData;
 import lol.corrado.utils.Utils;
@@ -39,13 +38,15 @@ public class KRPCLogic {
 
             setupKrpc(connection);
 
-            SpaceCenter.Vessel vessel = spaceCenter.getActiveVessel();
+            Vessel vessel = spaceCenter.getActiveVessel();
             setupPreFlight(vessel);
+
+            Orbit orbit = vessel.getOrbit();
+            CelestialBody body = orbit.getBody();
+            Flight flight = vessel.flight(vessel.getSurfaceReferenceFrame());
+
             GameData.vesselName = Utils.toChars(vessel.getName());
-
-
-            SpaceCenter.Flight flight = vessel.flight(vessel.getSurfaceReferenceFrame());
-            SpaceCenter.Orbit orbit = vessel.getOrbit();
+            GameData.body = Utils.toChars(body.getName());
 
             // ORBITAL
             apoapsis = connection.addStream(orbit, "getApoapsisAltitude");
@@ -57,20 +58,15 @@ public class KRPCLogic {
             vSpeed = connection.addStream(flight, "getVerticalSpeed");
             hSpeed = connection.addStream(flight, "getHorizontalSpeed");
 
-            // Activate the first stage
-//            vessel.getControl().activateNextStage();
-//            vessel.getAutoPilot().engage();
-//            vessel.getAutoPilot().targetPitchAndHeading(90, 90);
-//            vessel.getAutoPilot().setTargetRoll(90);
-
             while (true) {
 
                 GameData.apoapsisMeters = (float) (double) apoapsis.get();
                 GameData.periapsisMeters = (float) (double) periapsis.get();
                 GameData.inclinationDegrees = (float) (inclination.get() * 180 / Math.PI); // Math.toDegrees(inclination.get())
 
-                CelestialBody body = orbit.getBody();
-//                GameData.body = body.getName().getBytes(US_ASCII);
+                GameData.altitude = (float) (double) altitude.get();
+                GameData.vSpeed = (float) (double) vSpeed.get();
+                GameData.hSpeed = (float) (double) hSpeed.get();
 
                 sleep(50);
 
@@ -78,14 +74,18 @@ public class KRPCLogic {
 
 
         } finally {
-            if (altitude != null)
-                altitude.remove();
             if (apoapsis != null)
                 apoapsis.remove();
             if (periapsis != null)
                 periapsis.remove();
             if (inclination != null)
                 inclination.remove();
+            if (altitude != null)
+                altitude.remove();
+            if (vSpeed != null)
+                vSpeed.remove();
+            if (hSpeed != null)
+                hSpeed.remove();
         }
     }
 
@@ -103,7 +103,7 @@ public class KRPCLogic {
 
 
     @SneakyThrows
-    private Control setupPreFlight(SpaceCenter.Vessel vessel) {
+    private Control setupPreFlight(Vessel vessel) {
 
         System.out.println(vessel.getName());
 
