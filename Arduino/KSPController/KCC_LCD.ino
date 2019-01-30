@@ -7,7 +7,7 @@ void KCC_LCD::setup() {
   _lcd.init();
   _lcd.backlight();
 
-//  splash();
+  //  splash();
 
   _lcd.clear();
 
@@ -38,7 +38,7 @@ void KCC_LCD::update() {
   if (change) {
     _lcd.clear();
     currentMode = mode;
-    _LCD.print(13, 0, mode);
+    _LCD.print(13, 0, mode == ORBITAL ? F("ORBITAL") : mode == SURFACE ? F("SURFACE") : F("TARGET"));
   }
 
   if (currentMode == ORBITAL) {

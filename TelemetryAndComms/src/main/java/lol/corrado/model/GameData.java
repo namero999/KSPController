@@ -11,14 +11,14 @@ import static lol.corrado.utils.Utils.toChars;
 public class GameData {
 
     // ORBITAL
-    public byte[] vesselName = toChars("VESSEL");
+    public byte[] vesselName = toChars("Vessel");
 
     public float apoapsisMeters = 10;
     public float periapsisMeters = 20;
     public float inclinationDegrees = 30;
 
     // SURFACE
-    public byte[] body = toChars("BODY");
+    public byte[] body = toChars("Kerbin");
 
     public float altitude = 40;
     public float vSpeed = 50;
