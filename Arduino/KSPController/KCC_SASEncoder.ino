@@ -1,6 +1,6 @@
 void KCC_SASEncoder::setup() {
 
-  attachInterrupt(PIN_ENCODER_DATA, SAS_DATA_RISE, RISING);
+  attachInterrupt(PIN_ENCODER_DATA,  SAS_DATA_RISE, RISING);
   attachInterrupt(PIN_ENCODER_CLOCK, SAS_CLOCK_RISE, RISING);
 
 }

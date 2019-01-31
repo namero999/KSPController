@@ -4,7 +4,8 @@
 #include "KCC_Serial.h"
 #include "KCC_SASEncoder.h"
 
-GameData gameData;
+Telemetry telemetry;
+CommandData commandData;
 
 void setup() {
 
@@ -15,12 +16,18 @@ void setup() {
   _SP.setup();
   _SP.handshake();
 
+  commandData.attX = 10;
+  commandData.attY = 11;
+  commandData.attZ = 12;
+
 }
 
 void loop() {
 
-  if (_SP.readData(&gameData))
+  if (_SP.pullTelemetry(&telemetry))
     _LCD.update();
+
+  _SP.pushCommands(&commandData);
 
   delay(1);
 

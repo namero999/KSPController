@@ -7,7 +7,7 @@ import krpc.client.services.KRPC;
 import krpc.client.services.SpaceCenter;
 import krpc.client.services.SpaceCenter.*;
 import krpc.client.services.UI;
-import lol.corrado.model.GameData;
+import lol.corrado.model.Telemetry;
 import lol.corrado.utils.Utils;
 import lombok.SneakyThrows;
 import org.javatuples.Triplet;
@@ -45,8 +45,8 @@ public class KRPCLogic {
             CelestialBody body = orbit.getBody();
             Flight flight = vessel.flight(vessel.getSurfaceReferenceFrame());
 
-            GameData.vesselName = Utils.toChars(vessel.getName());
-            GameData.body = Utils.toChars(body.getName());
+            Telemetry.vesselName = Utils.toChars(vessel.getName());
+            Telemetry.body = Utils.toChars(body.getName());
 
             // ORBITAL
             apoapsis = connection.addStream(orbit, "getApoapsisAltitude");
@@ -60,13 +60,13 @@ public class KRPCLogic {
 
             while (true) {
 
-                GameData.apoapsisMeters = (float) (double) apoapsis.get();
-                GameData.periapsisMeters = (float) (double) periapsis.get();
-                GameData.inclinationDegrees = (float) (inclination.get() * 180 / Math.PI); // Math.toDegrees(inclination.get())
+                Telemetry.apoapsisMeters = (float) (double) apoapsis.get();
+                Telemetry.periapsisMeters = (float) (double) periapsis.get();
+                Telemetry.inclinationDegrees = (float) (inclination.get() * 180 / Math.PI); // Math.toDegrees(inclination.get())
 
-                GameData.altitude = (float) (double) altitude.get();
-                GameData.vSpeed = (float) (double) vSpeed.get();
-                GameData.hSpeed = (float) (double) hSpeed.get();
+                Telemetry.altitude = (float) (double) altitude.get();
+                Telemetry.vSpeed = (float) (double) vSpeed.get();
+                Telemetry.hSpeed = (float) (double) hSpeed.get();
 
                 sleep(50);
 

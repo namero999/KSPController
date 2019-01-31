@@ -18,7 +18,6 @@ public class KCCSerial {
     public static final byte DC3 = 0x13;
     public static final byte DC4 = 0x14;
 
-
     public static final byte[] HS_START = { SYN };
     public static final byte[] START = { DC1, DC2 };
     public static final byte[] END = { DC3, DC4 };

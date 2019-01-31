@@ -1,16 +1,17 @@
 package lol.corrado.serial;
 
 import com.fazecast.jSerialComm.SerialPort;
-import lol.corrado.model.GameData;
+import lol.corrado.model.Telemetry;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.SneakyThrows;
 
-import static lol.corrado.serial.KCCSerial.*;
+import static lol.corrado.serial.KCCSerial.END;
+import static lol.corrado.serial.KCCSerial.START;
 
 @RequiredArgsConstructor
-public class DataPushingThread implements Runnable {
+public class PushTelemetryThread implements Runnable {
 
     @NonNull
     private SerialPort serial;
@@ -23,13 +24,10 @@ public class DataPushingThread implements Runnable {
     public void run() {
 
         do {
-            byte[] bytes = GameData.getBytes();
+            byte[] bytes = Telemetry.getBytes();
             serial.writeBytes(START, START.length);
             serial.writeBytes(bytes, bytes.length);
             serial.writeBytes(END, END.length);
-            byte b = (byte) serial.getInputStream().read();
-            if (b == NAK)
-                System.out.println("NAK!");
         } while (!shouldStop);
 
     }

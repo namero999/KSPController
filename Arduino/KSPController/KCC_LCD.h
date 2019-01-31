@@ -11,7 +11,7 @@ class KCC_LCD {
     static const DisplayMode UNKNOWN = 0;
     static const DisplayMode ORBITAL = 1;
     static const DisplayMode SURFACE = 2;
-    static const DisplayMode TARGET = 3;
+    static const DisplayMode TARGET  = 3;
     DisplayMode currentMode = UNKNOWN;
     DisplayMode getMode();
     void splash();

@@ -38,46 +38,46 @@ void KCC_LCD::update() {
   if (change) {
     _lcd.clear();
     currentMode = mode;
-    _LCD.print(13, 0, mode == ORBITAL ? F("ORBITAL") : mode == SURFACE ? F("SURFACE") : F("TARGET"));
+    _LCD.print(13, 0, mode == ORBITAL ? F("ORBITAL") : mode == SURFACE ? F("SURFACE") : F(" TARGET"));
   }
 
   if (currentMode == ORBITAL) {
 
     if (change) {
-      _LCD.print(0, 0, gameData.vessel);
+      _LCD.print(0, 0, telemetry.vessel);
       _LCD.print(0, 1, "AP: ");
       _LCD.print(0, 2, "PE: ");
       _LCD.print(0, 3, "IN: ");
     }
 
     //    dtostrf(gameData.ap, 7, 2, line);
-    _LCD.print(4, 1, gameData.ap);
+    _LCD.print(4, 1, telemetry.ap);
 
     //    dtostrf(gameData.pe, 7, 2, line);
-    _LCD.print(4, 2, gameData.pe);
+    _LCD.print(4, 2, telemetry.pe);
 
     //    dtostrf(gameData.in, 7, 2, line);
-    _LCD.print(4, 3, gameData.in);
+    _LCD.print(4, 3, telemetry.in);
 
   }
 
   else if (currentMode == SURFACE) {
 
     if (change) {
-      _LCD.print(0, 0, gameData.body);
+      _LCD.print(0, 0, telemetry.body);
       _LCD.print(0, 1, "AL: ");
       _LCD.print(0, 2, "VS: ");
       _LCD.print(0, 3, "HS: ");
     }
 
     //    dtostrf(gameData.alt, 7, 2, line);
-    _LCD.print(4, 1, gameData.alt);
+    _LCD.print(4, 1, telemetry.alt);
 
     //    dtostrf(gameData.vS, 7, 2, line);
-    _LCD.print(4, 2, gameData.vS);
+    _LCD.print(4, 2, telemetry.vS);
 
     //    dtostrf(gameData.hS, 7, 2, line);
-    _LCD.print(4, 3, gameData.hS);
+    _LCD.print(4, 3, telemetry.hS);
 
   }
 

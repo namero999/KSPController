@@ -5,7 +5,7 @@ static const char METERS[] = "m";
 static const char KILOMETERS[] = "Km";
 static const char MEGAMETERS[] = "Mm";
 
-struct GameData {
+struct Telemetry {
 
   char vessel[11];
   
@@ -21,4 +21,14 @@ struct GameData {
 
 };
 
-static const uint8_t GD_SIZE = sizeof(GameData);
+static const uint8_t TM_SIZE = sizeof(Telemetry);
+
+struct CommandData {
+
+  short attX;
+  short attY;
+  short attZ;
+  
+};
+
+static const uint8_t CD_SIZE = sizeof(CommandData);
