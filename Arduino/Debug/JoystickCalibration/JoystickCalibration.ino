@@ -1,6 +1,6 @@
 void setup() {
   pinMode(52, INPUT_PULLUP);
-  Serial.begin(115200);
+  Serial.begin(57600);
 }
 
 int scale = 100;

@@ -1,4 +1,4 @@
-int pwmOut = 3;
+int pwmOut = 4;
 
 void setup() {
   Serial.begin(9600);
@@ -9,8 +9,8 @@ void setup() {
 int h = 10;
 
 void loop() {
-  rotating();
-//    fix();
+//    rotating();
+  fix();
 }
 
 void rotating() {
@@ -18,7 +18,7 @@ void rotating() {
   //  Serial.read();
   if (h < 0)
     h = 10;
-  int val = map(h, 0, 10, 10, 255);
+  int val = map(h, 0, 10, 20, 255);
   Serial.println(val);
   analogWrite(pwmOut, val);
   delay(1000);

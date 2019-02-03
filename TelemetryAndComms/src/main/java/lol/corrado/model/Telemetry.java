@@ -10,7 +10,7 @@ import static lol.corrado.utils.Utils.toChars;
 @UtilityClass
 public class Telemetry {
 
-    public final byte[] raw = new byte[46];
+    public final byte[] raw = new byte[48];
 
     private final ByteBuffer BUFFER;
 
@@ -33,6 +33,8 @@ public class Telemetry {
     public float vSpeed = 50;
     public float hSpeed = 60;
 
+    public short fuelSolid = 10;
+
     public byte[] getBytes() {
 
         BUFFER.position(0);
@@ -46,6 +48,8 @@ public class Telemetry {
         BUFFER.putFloat(altitude++);
         BUFFER.putFloat(vSpeed += .01);
         BUFFER.putFloat(hSpeed++);
+
+        BUFFER.putShort(fuelSolid);
 
         return raw;
 

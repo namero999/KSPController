@@ -2,6 +2,8 @@
 #include "GameData.h"
 #include "KCC_LCD.h"
 #include "KCC_Serial.h"
+#include "KCC_Fuel.h"
+#include "KCC_Controls.h"
 #include "KCC_SASEncoder.h"
 
 Telemetry telemetry;
@@ -16,16 +18,16 @@ void setup() {
   _SP.setup();
   _SP.handshake();
 
-  commandData.attX = 10;
-  commandData.attY = 11;
-  commandData.attZ = 12;
-
 }
 
 void loop() {
 
-  if (_SP.pullTelemetry(&telemetry))
+  if (_SP.pullTelemetry(&telemetry)) {
     _LCD.update();
+    _FUEL.update();
+  }
+
+  _CTRL.read();
 
   _SP.pushCommands(&commandData);
 

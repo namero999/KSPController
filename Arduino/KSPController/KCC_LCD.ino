@@ -7,7 +7,7 @@ void KCC_LCD::setup() {
   _lcd.init();
   _lcd.backlight();
 
-  //  splash();
+  // splash();
 
   _lcd.clear();
 
@@ -23,8 +23,8 @@ template <typename T> void KCC_LCD::print(uint8_t x, uint8_t y, T w) {
 }
 
 DisplayMode KCC_LCD::getMode() {
-  boolean a = digitalRead(PIN_DISPLAY_MODE_A);
-  boolean b = digitalRead(PIN_DISPLAY_MODE_B);
+  boolean a = digitalRead(PIN_LCD_MODE_A);
+  boolean b = digitalRead(PIN_LCD_MODE_B);
   return a && b ? ORBITAL : b ? SURFACE : TARGET;
 }
 

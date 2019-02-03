@@ -37,13 +37,9 @@ boolean KCC_Serial::pullTelemetry(Telemetry* telemetry) {
 
         if (Serial.read() == DC3 && Serial.read() == DC4) {
           memcpy(telemetry, serialBuffer, TM_SIZE);
-          // Serial.write(ACK);
           return true;
         }
-        else {
-          // Serial.write(NAK);
-          return false;
-        }
+        else return false;
 
       }
 
@@ -61,7 +57,7 @@ boolean KCC_Serial::pullTelemetry(Telemetry* telemetry) {
 boolean KCC_Serial::pushCommands(CommandData* command) {
 
   Serial.write(START, 2);
-  Serial.write((char*) command, CD_SIZE);
+  Serial.write((byte*) command, CD_SIZE);
   Serial.write(END, 2);
 
 }

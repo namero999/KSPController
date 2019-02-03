@@ -19,15 +19,17 @@ struct Telemetry {
   float vS;
   float hS;
 
+  short fuel_solid;
+
 };
 
 static const uint8_t TM_SIZE = sizeof(Telemetry);
 
 struct CommandData {
 
-  short attX;
-  short attY;
-  short attZ;
+  int attX;
+  int attY;
+  int attZ;
   
 };
 

@@ -18,19 +18,17 @@ public class ControlData {
         BUFFER.order(LITTLE_ENDIAN);
     }
 
-    public short x;
-    public short y;
-    public short z;
+    public short attX;
+    public short attY;
+    public short attZ;
 
     public void load() {
 
         BUFFER.position(0);
 
-        x = BUFFER.getShort();
-        y = BUFFER.getShort();
-        z = BUFFER.getShort();
-
-        System.out.println();
+        attX = BUFFER.getShort();
+        attY = BUFFER.getShort();
+        attZ = BUFFER.getShort();
 
     }
 
