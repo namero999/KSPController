@@ -10,7 +10,7 @@ class KCC_Fuel {
     short electro  = -1;
 
   public:
-    void update();
+    void update(Telemetry*);
 
 };
 

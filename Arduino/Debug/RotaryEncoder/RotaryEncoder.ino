@@ -5,7 +5,7 @@ void setup() {
   attachInterrupt(0, A_RISE, RISING);
   attachInterrupt(1, B_RISE, RISING);
   pinMode(22, INPUT_PULLUP);
-  Serial.begin(115200);
+  Serial.begin(57600);
 }//setup
 
 uint8_t state = HIGH;
@@ -22,7 +22,7 @@ void loop() {
 void A_RISE() {
   detachInterrupt(0);
   A_SIG = 1;
-
+  
   if (B_SIG == 0)
     pulses++;//moving forward
   if (B_SIG == 1)

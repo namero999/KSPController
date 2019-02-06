@@ -1,7 +1,7 @@
 int pwmOut = 4;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(57600);
   pinMode(pwmOut, OUTPUT);
   pinMode(46, OUTPUT);
 }

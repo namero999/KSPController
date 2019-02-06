@@ -13,26 +13,17 @@ void KCC_LCD::setup() {
 
 }
 
-void KCC_LCD::clear() {
-  _lcd.clear();
-}
-
-template <typename T> void KCC_LCD::print(uint8_t x, uint8_t y, T w) {
-  _lcd.setCursor(x, y);
-  _lcd.print(w);
-}
-
-DisplayMode KCC_LCD::getMode() {
+DisplayMode KCC_LCD::readModeSwitch() {
   boolean a = digitalRead(PIN_LCD_MODE_A);
   boolean b = digitalRead(PIN_LCD_MODE_B);
   return a && b ? ORBITAL : b ? SURFACE : TARGET;
 }
 
-char line[8];
+// char line[8];
 
 void KCC_LCD::update() {
 
-  DisplayMode mode = getMode();
+  DisplayMode mode = readModeSwitch();
   boolean change = currentMode != mode;
 
   if (change) {
@@ -110,4 +101,13 @@ void KCC_LCD::splash() {
 
   delay(1000);
 
+}
+
+void KCC_LCD::clear() {
+  _lcd.clear();
+}
+
+template <typename T> void KCC_LCD::print(uint8_t x, uint8_t y, T w) {
+  _lcd.setCursor(x, y);
+  _lcd.print(w);
 }

@@ -5,7 +5,7 @@ void KCC_Controls::read() {
 
 }
 
-int KCC_Controls::adjust (int v) {
-  v = map(v, 0, 1023, -SCALE, SCALE);
-  return v > DEADZONE || v < -DEADZONE ? v : 0;
+int KCC_Controls::adjust(int val) {
+  val = map(val, 5, 1020, -SCALE, SCALE);
+  return val > DEADZONE || val < -DEADZONE ? val : 0;
 }

@@ -2,14 +2,16 @@ package lol.corrado.serial;
 
 import com.fazecast.jSerialComm.SerialPort;
 import lol.corrado.model.ControlData;
-import lol.corrado.model.Telemetry;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
 import java.io.InputStream;
 
+import static java.lang.String.format;
 import static lol.corrado.model.ControlData.attX;
+import static lol.corrado.model.ControlData.attY;
+import static lol.corrado.model.Telemetry.fuelSolid;
 import static lol.corrado.serial.KCCSerial.*;
 
 @RequiredArgsConstructor
@@ -17,6 +19,8 @@ public class PullCommandsThread implements Runnable {
 
     @NonNull
     private SerialPort serial;
+
+    private int i = 0;
 
     @Override
     public void run() {
@@ -42,7 +46,11 @@ public class PullCommandsThread implements Runnable {
                 if (input.read() == DC3 && input.read() == DC4) {
 
                     ControlData.load();
-                    Telemetry.fuelSolid = (short) Math.abs((attX / 10));
+                    fuelSolid = (short) Math.abs((Math.round(attX) / 10));
+                    if (++i > 50) {
+                        i = 0;
+                        System.out.println(format("%d %d %d", attX, attY, fuelSolid));
+                    }
 
                 }
 
@@ -75,7 +83,7 @@ public class PullCommandsThread implements Runnable {
                     if (input.read() == DC3 && input.read() == DC4) {
 
                         ControlData.load();
-                        Telemetry.fuelSolid = (short) Math.abs((attX / 10));
+                        fuelSolid = (short) Math.abs((attX / 10));
 
                     }
 

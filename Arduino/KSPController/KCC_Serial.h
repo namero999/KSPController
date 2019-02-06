@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Arduino.h"
-
 class KCC_Serial {
 
   private:
@@ -15,6 +13,7 @@ class KCC_Serial {
     static const byte DC4 = 0x14;
     static const byte START[2];
     static const byte END  [2];
+    byte telemetryBuffer[TM_SIZE];
 
   public:
     void setup();

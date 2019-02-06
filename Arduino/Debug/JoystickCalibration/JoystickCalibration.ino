@@ -27,7 +27,8 @@ void loop() {
 }
 
 int adjust (int v) {
-  v = map(v, 0, 1023, -scale, scale);
+//  Serial.println(v);
+  v = map(v, 5, 1020, -scale, scale);
   return v > deadzone || v < -deadzone ? v : 0;
 }
 

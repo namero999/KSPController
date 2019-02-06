@@ -16,27 +16,25 @@ void KCC_Serial::handshake() {
 
 }
 
-byte serialBuffer[TM_SIZE];
-
 boolean KCC_Serial::pullTelemetry(Telemetry* telemetry) {
 
-  static boolean progress = false;
   static uint8_t index = 0;
+  static boolean progress = false;
 
   while (Serial.available() > 1) {
 
     if (progress) {
 
       if (index < TM_SIZE) {
-        serialBuffer[index++] = Serial.read();
+        telemetryBuffer[index++] = Serial.read();
       }
       else {
 
-        progress = false;
         index = 0;
+        progress = false;
 
         if (Serial.read() == DC3 && Serial.read() == DC4) {
-          memcpy(telemetry, serialBuffer, TM_SIZE);
+          memcpy(telemetry, telemetryBuffer, TM_SIZE);
           return true;
         }
         else return false;

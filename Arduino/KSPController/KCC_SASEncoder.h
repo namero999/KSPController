@@ -1,25 +1,27 @@
 #pragma once
 
-typedef uint8_t SASMode;
+typedef char SASMode;
 
 class KCC_SASEncoder {
 
   private:
-    static const SASMode OFF;
-    static const SASMode AUTO;
-    static const SASMode PROGRADE;
-    static const SASMode RETROGRADE;
-    static const SASMode NORMAL;
-    static const SASMode ANTINORMAL;
-    static const SASMode RADIAL;
-    static const SASMode ANTIRADIAL;
-    static const SASMode TARGET_PROGRADE;
-    static const SASMode TARGET_RETROGRADE;
-    SASMode state;
+    static const SASMode OFF               = 0;
+    static const SASMode AUTO              = 1;
+    static const SASMode PROGRADE          = 2;
+    static const SASMode RETROGRADE        = 3;
+    static const SASMode NORMAL            = 4;
+    static const SASMode ANTINORMAL        = 5;
+    static const SASMode RADIAL            = 6;
+    static const SASMode ANTIRADIAL        = 7;
+    static const SASMode TARGET_PROGRADE   = 8;
+    static const SASMode TARGET_RETROGRADE = 9;
 
   public:
     void setup();
-    SASMode query();
+    void update();
+    void next();
+    void prev();
+    SASMode currentMode = OFF;
 
 };
 

@@ -16,20 +16,29 @@ void setup() {
   _LCD.setup();
 
   _SP.setup();
-  _SP.handshake();
+  //  _SP.handshake();
+
+  _SAS.setup();
 
 }
 
+SASMode lastMode = 0;
+
 void loop() {
 
-  if (_SP.pullTelemetry(&telemetry)) {
-    _LCD.update();
-    _FUEL.update();
+  //  if (_SP.pullTelemetry(&telemetry)) {
+  //    _LCD.update();
+  //    _FUEL.update(&telemetry);
+  //  }
+  //
+  //  _CTRL.read();
+  //
+  //  _SP.pushCommands(&commandData);
+
+  if (lastMode != _SAS.currentMode) {
+    lastMode = _SAS.currentMode;
+    Serial.println((short)lastMode);
   }
-
-  _CTRL.read();
-
-  _SP.pushCommands(&commandData);
 
   delay(1);
 
