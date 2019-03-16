@@ -2,7 +2,7 @@
 
 typedef char SASMode;
 
-class KCC_SASEncoder {
+class KCC_SAS : KCC_LedSwitch5, KCC_Encoder {
 
   private:
     static const SASMode OFF               = 0;
@@ -15,14 +15,18 @@ class KCC_SASEncoder {
     static const SASMode ANTIRADIAL        = 7;
     static const SASMode TARGET_PROGRADE   = 8;
     static const SASMode TARGET_RETROGRADE = 9;
+    SASMode lastMode    = OFF;
+    SASMode currentMode = OFF;
 
   public:
-    void setup();
-    void update();
+    KCC_SAS(uint8_t ledPin, uint8_t togglePin, uint8_t dataPin, uint8_t clockPin, uint8_t resetPin);
+    bool update();
+    SASMode get() {
+      return currentMode;
+    }
     void next();
     void prev();
-    SASMode currentMode = OFF;
 
 };
 
-extern KCC_SASEncoder _SAS;
+extern KCC_SAS SAS;

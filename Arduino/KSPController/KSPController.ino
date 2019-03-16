@@ -1,13 +1,17 @@
 #include "Constants.h"
 #include "GameData.h"
-#include "KCC_LCD.h"
 #include "KCC_Serial.h"
+#include "KCC_LedSwitch5.h"
+#include "KCC_Encoder.h"
+#include "KCC_LCD.h"
 #include "KCC_Fuel.h"
 #include "KCC_Controls.h"
-#include "KCC_SASEncoder.h"
+#include "KCC_SAS.h"
 
 Telemetry telemetry;
 CommandData commandData;
+
+KCC_SAS SAS = KCC_SAS(PIN_SAS_LED, PIN_SAS_TOGGLE, PIN_SAS_DATA, PIN_SAS_CLOCK, PIN_SAS_RESET);
 
 void setup() {
 
@@ -18,11 +22,7 @@ void setup() {
   _SP.setup();
   //  _SP.handshake();
 
-  _SAS.setup();
-
 }
-
-SASMode lastMode = 0;
 
 void loop() {
 
@@ -35,10 +35,8 @@ void loop() {
   //
   //  _SP.pushCommands(&commandData);
 
-  if (lastMode != _SAS.currentMode) {
-    lastMode = _SAS.currentMode;
-    Serial.println((short)lastMode);
-  }
+    if (SAS.update())
+      Serial.println((short) SAS.get());
 
   delay(1);
 

@@ -12,8 +12,4 @@ void initPins() {
   pinMode(PIN_FUEL_MONOPROP, OUTPUT);
   pinMode(PIN_FUEL_ELECTRO,  OUTPUT);
 
-  pinMode(PIN_SAS_DATA,  INPUT);
-  pinMode(PIN_SAS_CLOCK, INPUT);
-  pinMode(PIN_SAS_CLICK, INPUT_PULLUP);
-
 }
