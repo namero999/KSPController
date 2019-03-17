@@ -11,6 +11,8 @@ class KCC_LedSwitch5 {
   protected:
     KCC_LedSwitch5(uint8_t ledPin, uint8_t togglePin);
     bool update();
+
+  public:
     bool isOn() {
       return on;
     }

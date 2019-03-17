@@ -4,15 +4,15 @@ KCC_Serial::KCC_Serial() {
 
 void KCC_Serial::handshake() {
 
-  LCD.print(0, 1, F("Waiting For Jeb..."));
-  LCD.print(9, 3, F("...as usual"));
+  LCD->print(0, 1, F("Waiting For Jeb..."));
+  LCD->print(9, 3, F("...as usual"));
 
   while (Serial.read() != SYN)
     delay(500);
 
   Serial.write(ACK);
 
-  LCD.clear();
+  LCD->clear();
 
 }
 

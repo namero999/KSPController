@@ -2,7 +2,7 @@ KCC_SAS::KCC_SAS(uint8_t ledPin, uint8_t togglePin, uint8_t dataPin, uint8_t clo
   : KCC_LedSwitch5(ledPin, togglePin)
   , KCC_Encoder(dataPin, clockPin, resetPin) {
 
-  attachInterrupts(DATA_FALL, CLOCK_FALL);
+//  attachInterrupts(DATA_FALL, CLOCK_FALL);
 
 }
 
@@ -29,7 +29,7 @@ void CLOCK_RISE() {
   SAS_CLOCK = HIGH;
   SAS_PULSE += SAS_DATA ? -1 : 1;
   if (SAS_PULSE % 12 == 0)
-    SAS.prev();
+    SAS->prev();
   attachInterrupt(PIN_SAS_CLOCK, CLOCK_FALL, FALLING);
 }
 
@@ -38,7 +38,7 @@ void DATA_RISE() {
   SAS_DATA = HIGH;
   SAS_PULSE += SAS_CLOCK ? 1 : -1;
   if (SAS_PULSE % 12 == 0)
-    SAS.next();
+    SAS->next();
   attachInterrupt(PIN_SAS_DATA, DATA_FALL, FALLING);
 }
 
@@ -67,12 +67,12 @@ bool KCC_SAS::update() {
 
 void KCC_SAS::next() {
   currentMode++;
-  if (currentMode > TARGET_RETROGRADE)
+  if (currentMode > ANTITARGET)
     currentMode = AUTO;
 }
 
 void KCC_SAS::prev() {
   currentMode--;
   if (currentMode < AUTO)
-    currentMode = TARGET_RETROGRADE;
+    currentMode = ANTITARGET;
 }

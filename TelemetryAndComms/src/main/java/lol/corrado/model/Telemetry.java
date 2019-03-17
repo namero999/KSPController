@@ -20,7 +20,7 @@ public class Telemetry {
     }
 
     // ORBITAL
-    public byte[] vesselName = toChars("Vessel");
+    public byte[] vesselName = toChars("Vascello123");
 
     public float apoapsisMeters = 10;
     public float periapsisMeters = 20;
@@ -40,19 +40,39 @@ public class Telemetry {
         BUFFER.position(0);
 
         BUFFER.put(vesselName);
-        BUFFER.putFloat(apoapsisMeters += .01);
-        BUFFER.putFloat(periapsisMeters++);
-        BUFFER.putFloat(inclinationDegrees++);
+        BUFFER.putFloat(apoapsisMeters);
+        BUFFER.putFloat(periapsisMeters);
+        BUFFER.putFloat(inclinationDegrees);
 
         BUFFER.put(body);
-        BUFFER.putFloat(altitude++);
-        BUFFER.putFloat(vSpeed += .01);
-        BUFFER.putFloat(hSpeed++);
+        BUFFER.putFloat(altitude);
+        BUFFER.putFloat(vSpeed);
+        BUFFER.putFloat(hSpeed);
 
         BUFFER.putShort(fuelSolid);
 
         return raw;
 
     }
+
+//    public byte[] getBytes() {
+//
+//        BUFFER.position(0);
+//
+//        BUFFER.put(vesselName);
+//        BUFFER.putFloat(apoapsisMeters += .01);
+//        BUFFER.putFloat(periapsisMeters++);
+//        BUFFER.putFloat(inclinationDegrees++);
+//
+//        BUFFER.put(body);
+//        BUFFER.putFloat(altitude++);
+//        BUFFER.putFloat(vSpeed += .01);
+//        BUFFER.putFloat(hSpeed++);
+//
+//        BUFFER.putShort(fuelSolid);
+//
+//        return raw;
+//
+//    }
 
 }

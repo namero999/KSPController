@@ -26,4 +26,4 @@ class KCC_Serial {
 static const byte KCC_Serial::START[2] = { DC1, DC2 };
 static const byte KCC_Serial::END  [2] = { DC3, DC4 };
 
-extern KCC_Serial SER;
+extern KCC_Serial* SER;

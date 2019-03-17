@@ -1,3 +1,5 @@
+typedef byte SASMode;
+
 static const uint8_t PIN_SAS_DATA  = digitalPinToInterrupt(2);
 static const uint8_t PIN_SAS_CLOCK = digitalPinToInterrupt(3);
 static const uint8_t PIN_SAS_RESET = 22;

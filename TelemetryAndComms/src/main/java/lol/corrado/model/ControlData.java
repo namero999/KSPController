@@ -1,34 +1,35 @@
 package lol.corrado.model;
 
-import lombok.experimental.UtilityClass;
-
 import java.nio.ByteBuffer;
 
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
 
-@UtilityClass
 public class ControlData {
 
-    public final byte[] raw = new byte[6];
+    public static final byte[] raw = new byte[8];
 
-    private final ByteBuffer BUFFER;
+    private static final ByteBuffer BUFFER;
 
     static {
         BUFFER = ByteBuffer.wrap(raw);
         BUFFER.order(LITTLE_ENDIAN);
     }
 
-    public short attX;
-    public short attY;
-    public short attZ;
+    public static short attX;
+    public static short attY;
+    public static short attZ;
+    public static byte sasOn = 0;
+    public static byte sasMode = 0;
 
-    public void load() {
+    public static void load() {
 
         BUFFER.position(0);
 
         attX = BUFFER.getShort();
         attY = BUFFER.getShort();
         attZ = BUFFER.getShort();
+        sasOn = BUFFER.get();
+        sasMode = BUFFER.get();
 
     }
 

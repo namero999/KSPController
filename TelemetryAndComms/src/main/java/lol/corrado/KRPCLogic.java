@@ -13,8 +13,9 @@ import lombok.SneakyThrows;
 import org.javatuples.Triplet;
 
 import static java.lang.Thread.sleep;
-import static krpc.client.services.SpaceCenter.SASMode.STABILITY_ASSIST;
 import static krpc.client.services.UI.MessagePosition.TOP_CENTER;
+import static lol.corrado.model.ControlData.sasMode;
+import static lol.corrado.model.ControlData.sasOn;
 
 public class KRPCLogic {
 
@@ -22,6 +23,8 @@ public class KRPCLogic {
     private UI ui;
 
     private SpaceCenter spaceCenter;
+    byte sas = 0;
+    byte mode = 0;
 
     @SneakyThrows
     public void start() {
@@ -39,7 +42,7 @@ public class KRPCLogic {
             setupKrpc(connection);
 
             Vessel vessel = spaceCenter.getActiveVessel();
-            setupPreFlight(vessel);
+            Control control = setupPreFlight(vessel);
 
             Orbit orbit = vessel.getOrbit();
             CelestialBody body = orbit.getBody();
@@ -67,6 +70,28 @@ public class KRPCLogic {
                 Telemetry.altitude = (float) (double) altitude.get();
                 Telemetry.vSpeed = (float) (double) vSpeed.get();
                 Telemetry.hSpeed = (float) (double) hSpeed.get();
+
+
+                if (sas != sasOn) {
+                    sas = sasOn;
+                    control.setSAS(sas == 1);
+                    System.out.println(sasMode);
+                    if (sas == 1) {
+                        sleep(1);
+                        mode = sasMode;
+                        control.setSASMode(SASMode.fromValue(sasMode));
+                    }
+
+                }
+                if (sas == 1 && mode != sasMode) {
+                    mode = sasMode;
+                    System.out.println(mode);
+                    try {
+                        control.setSASMode(SASMode.fromValue(mode));
+                    } catch (Exception e) {
+//                        e.printStackTrace();
+                    }
+                }
 
                 sleep(50);
 
@@ -108,9 +133,9 @@ public class KRPCLogic {
         System.out.println(vessel.getName());
 
         Control control = vessel.getControl();
-        control.setSAS(true);
-        control.setSASMode(STABILITY_ASSIST);
-        control.setThrottle(.75f);
+//        control.setSAS(true);
+//        control.setSASMode(NORMAL);
+//        control.setThrottle(.75f);
 
         return control;
 

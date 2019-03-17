@@ -26,4 +26,4 @@ class KCC_LCD {
 
 };
 
-extern KCC_LCD LCD;
+extern KCC_LCD* LCD;

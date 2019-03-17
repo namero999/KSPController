@@ -9,7 +9,7 @@ KCC_LCD::KCC_LCD(uint8_t modeSwitchPin1, uint8_t modeSwitchPin2) : _lcd(0x27, 20
   _lcd.init();
   _lcd.backlight();
 
-  // splash();
+  //  splash();
 
   _lcd.clear();
 
@@ -31,53 +31,53 @@ void KCC_LCD::update() {
   if (change) {
     _lcd.clear();
     currentMode = mode;
-    LCD.print(13, 0, mode == ORBITAL ? F("ORBITAL") : mode == SURFACE ? F("SURFACE") : F(" TARGET"));
+    LCD->print(13, 0, mode == ORBITAL ? F("ORBITAL") : mode == SURFACE ? F("SURFACE") : F(" TARGET"));
   }
 
   if (currentMode == ORBITAL) {
 
     if (change) {
-      LCD.print(0, 0, telemetry.vessel);
-      LCD.print(0, 1, "AP: ");
-      LCD.print(0, 2, "PE: ");
-      LCD.print(0, 3, "IN: ");
+      LCD->print(0, 0, telemetry.vessel);
+      LCD->print(0, 1, "AP: ");
+      LCD->print(0, 2, "PE: ");
+      LCD->print(0, 3, "IN: ");
     }
 
-    //    dtostrf(gameData.ap, 7, 2, line);
-    LCD.print(4, 1, telemetry.ap);
+    // dtostrf(gameData.ap, 7, 2, line);
+    LCD->print(4, 1, telemetry.ap);
 
-    //    dtostrf(gameData.pe, 7, 2, line);
-    LCD.print(4, 2, telemetry.pe);
+    // dtostrf(gameData.pe, 7, 2, line);
+    LCD->print(4, 2, telemetry.pe);
 
-    //    dtostrf(gameData.in, 7, 2, line);
-    LCD.print(4, 3, telemetry.in);
+    // dtostrf(gameData.in, 7, 2, line);
+    LCD->print(4, 3, telemetry.in);
 
   }
 
   else if (currentMode == SURFACE) {
 
     if (change) {
-      LCD.print(0, 0, telemetry.body);
-      LCD.print(0, 1, "AL: ");
-      LCD.print(0, 2, "VS: ");
-      LCD.print(0, 3, "HS: ");
+      LCD->print(0, 0, telemetry.body);
+      LCD->print(0, 1, "AL: ");
+      LCD->print(0, 2, "VS: ");
+      LCD->print(0, 3, "HS: ");
     }
 
-    //    dtostrf(gameData.alt, 7, 2, line);
-    LCD.print(4, 1, telemetry.alt);
+    // dtostrf(gameData.alt, 7, 2, line);
+    LCD->print(4, 1, telemetry.alt);
 
-    //    dtostrf(gameData.vS, 7, 2, line);
-    LCD.print(4, 2, telemetry.vS);
+    // dtostrf(gameData.vS, 7, 2, line);
+    LCD->print(4, 2, telemetry.vS);
 
-    //    dtostrf(gameData.hS, 7, 2, line);
-    LCD.print(4, 3, telemetry.hS);
+    // dtostrf(gameData.hS, 7, 2, line);
+    LCD->print(4, 3, telemetry.hS);
 
   }
 
   else if (currentMode == TARGET) {
 
     if (change)
-      LCD.print(0, 0, TARGET);
+      LCD->print(0, 0, TARGET);
 
   }
 

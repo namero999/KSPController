@@ -39,9 +39,9 @@ public class Utils {
     }
 
     public static byte[] toChars(String s) {
-        byte[] nulls = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+        byte[] nulls = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; // 11
         if (s == null || s.isEmpty()) return nulls;
-        byte[] bytes = s.getBytes(US_ASCII);
+        byte[] bytes = (s.length() > 10 ? s.substring(0, 10) : s).getBytes(US_ASCII);
         arraycopy(bytes, 0, nulls, 0, bytes.length);
         return nulls;
     }

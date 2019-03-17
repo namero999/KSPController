@@ -1,21 +1,20 @@
 #pragma once
 
-typedef char SASMode;
-
-class KCC_SAS : KCC_LedSwitch5, KCC_Encoder {
+class KCC_SAS : public KCC_LedSwitch5, KCC_Encoder {
 
   private:
-    static const SASMode OFF               = 0;
-    static const SASMode AUTO              = 1;
-    static const SASMode PROGRADE          = 2;
-    static const SASMode RETROGRADE        = 3;
-    static const SASMode NORMAL            = 4;
-    static const SASMode ANTINORMAL        = 5;
-    static const SASMode RADIAL            = 6;
-    static const SASMode ANTIRADIAL        = 7;
-    static const SASMode TARGET_PROGRADE   = 8;
-    static const SASMode TARGET_RETROGRADE = 9;
-    SASMode lastMode    = OFF;
+    static const SASMode OFF        = -1;
+    static const SASMode AUTO       =  0;
+    static const SASMode MANOUVER   =  1;
+    static const SASMode PROGRADE   =  2;
+    static const SASMode RETROGRADE =  3;
+    static const SASMode NORMAL     =  4;
+    static const SASMode ANTINORMAL =  5;
+    static const SASMode RADIAL     =  6;
+    static const SASMode ANTIRADIAL =  7;
+    static const SASMode TARGET     =  8;
+    static const SASMode ANTITARGET =  9;
+    SASMode lastMode    = AUTO;
     SASMode currentMode = OFF;
 
   public:
@@ -29,4 +28,4 @@ class KCC_SAS : KCC_LedSwitch5, KCC_Encoder {
 
 };
 
-extern KCC_SAS SAS;
+extern KCC_SAS* SAS;

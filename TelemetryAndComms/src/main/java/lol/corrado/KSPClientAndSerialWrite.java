@@ -12,10 +12,17 @@ public class KSPClientAndSerialWrite {
 
         SerialPort serial = startSerial();
 
-        new Thread(new PushTelemetryThread(serial)).start();
-        new Thread(new PullCommandsThread(serial)).start();
+        PushTelemetryThread push = new PushTelemetryThread(serial);
+        new Thread(push).start();
+        PullCommandsThread pull = new PullCommandsThread(serial);
+        new Thread(pull).start();
 
-//        new KRPCLogic().start();
+        try {
+            new KRPCLogic().start();
+        } catch (Exception e) {
+            push.setShouldStop(true);
+            pull.setShouldStop(true);
+        }
 
     }
 

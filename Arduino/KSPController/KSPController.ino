@@ -15,23 +15,35 @@ void setup() {
 
   initializeComponents();
 
-  SER.handshake();
+  SER->handshake();
+
+}
+
+void updateController() {
+
+  if (SER->pullTelemetry(&telemetry)) {
+    LCD->update();
+    // _FUEL.update(&telemetry);
+  }
+
+}
+
+void sendCommands() {
+
+  if (SAS->update()) {
+    commandData.sasOn = SAS->isOn();
+    commandData.sasMode = SAS->get();
+  }
+  // CTRL.read();
+  SER->pushCommands(&commandData);
 
 }
 
 void loop() {
 
-  if (SER.pullTelemetry(&telemetry)) {
-    LCD.update();
-    // _FUEL.update(&telemetry);
-  }
+  updateController();
+  sendCommands();
 
-  // CTRL.read();
-  // SER.pushCommands(&commandData);
-
-  if (SAS.update())
-    Serial.println((short) SAS.get());
-
-  delay(1);
+  //  delay(1);
 
 }

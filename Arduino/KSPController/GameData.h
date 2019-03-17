@@ -23,7 +23,6 @@ struct Telemetry {
   short fuel_solid;
 
 };
-
 static const uint8_t TM_SIZE = sizeof(Telemetry);
 
 
@@ -32,7 +31,8 @@ struct CommandData {
   int attX;
   int attY;
   int attZ;
+  bool sasOn;
+  SASMode sasMode;
   
 };
-
 static const uint8_t CD_SIZE = sizeof(CommandData);
