@@ -1,18 +1,18 @@
-void KCC_Serial::setup() {
+KCC_Serial::KCC_Serial() {
   Serial.begin(BAUD);
 }
 
 void KCC_Serial::handshake() {
 
-  _LCD.print(0, 1, F("Waiting For Jeb..."));
-  _LCD.print(9, 3, F("...as usual"));
+  LCD.print(0, 1, F("Waiting For Jeb..."));
+  LCD.print(9, 3, F("...as usual"));
 
   while (Serial.read() != SYN)
     delay(500);
 
   Serial.write(ACK);
 
-  _LCD.clear();
+  LCD.clear();
 
 }
 

@@ -2,8 +2,8 @@ static const uint8_t PIN_SAS_DATA  = digitalPinToInterrupt(2);
 static const uint8_t PIN_SAS_CLOCK = digitalPinToInterrupt(3);
 static const uint8_t PIN_SAS_RESET = 22;
 
-static const uint8_t PIN_LCD_MODE_B = 51;
-static const uint8_t PIN_LCD_MODE_A = 53;
+static const uint8_t PIN_LCD_MODE_1 = 51;
+static const uint8_t PIN_LCD_MODE_2 = 53;
 
 static const uint8_t PIN_FUEL_SOLID    = 4;
 static const uint8_t PIN_FUEL_LIQUID   = 5;

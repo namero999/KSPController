@@ -3,15 +3,10 @@
 class KCC_Fuel {
 
   private:
-    short solid    = -1;
-    short liquid   = -1;
-    short oxidizer = -1;
-    short monoprop = -1;
-    short electro  = -1;
+    uint8_t pwmPin;
 
   public:
+    KCC_Fuel(uint8_t pwmPin);
     void update(Telemetry*);
 
 };
-
-extern KCC_Fuel _FUEL;

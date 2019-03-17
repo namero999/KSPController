@@ -45,7 +45,7 @@ void DATA_RISE() {
 bool KCC_SAS::update() {
 
   if (KCC_LedSwitch5::update()) {
-    if (on) {
+    if (isOn()) {
       currentMode = lastMode;
       attachInterrupts(DATA_FALL, CLOCK_FALL);
     } else {
@@ -56,7 +56,7 @@ bool KCC_SAS::update() {
     return true;
   }
 
-  if (on && lastMode != currentMode) {
+  if (isOn() && lastMode != currentMode) {
     lastMode = currentMode;
     return true;
   }

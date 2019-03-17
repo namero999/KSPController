@@ -16,7 +16,7 @@ class KCC_Serial {
     byte telemetryBuffer[TM_SIZE];
 
   public:
-    void setup();
+    KCC_Serial();
     void handshake();
     boolean pullTelemetry(Telemetry*);
     boolean pushCommands(CommandData*);
@@ -26,4 +26,4 @@ class KCC_Serial {
 static const byte KCC_Serial::START[2] = { DC1, DC2 };
 static const byte KCC_Serial::END  [2] = { DC3, DC4 };
 
-extern KCC_Serial _SP;
+extern KCC_Serial SER;
