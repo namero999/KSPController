@@ -1,10 +1,6 @@
 KCC_SAS::KCC_SAS(uint8_t ledPin, uint8_t togglePin, uint8_t dataPin, uint8_t clockPin, uint8_t resetPin)
   : KCC_LedSwitch5(ledPin, togglePin)
-  , KCC_Encoder(dataPin, clockPin, resetPin) {
-
-//  attachInterrupts(DATA_FALL, CLOCK_FALL);
-
-}
+  , KCC_Encoder(dataPin, clockPin, resetPin) {}
 
 bool SAS_DATA  = HIGH;
 bool SAS_CLOCK = HIGH;
